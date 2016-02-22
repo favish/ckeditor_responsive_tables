@@ -1,0 +1,8 @@
+docroot/sites/default/files
+.drush/cache
+.sass-cache
+.vagrant
+.idea
+node_modules
+bower_components
+.DS_Store
