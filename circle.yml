@@ -1,0 +1,5 @@
+deployment:
+  master:
+    branch: master
+    commands:
+      - curl -X POST https://circleci.com/api/v1/project/FavishInc/gsb-programs/tree/master?circle-token=$CIRCLE_TOKEN
