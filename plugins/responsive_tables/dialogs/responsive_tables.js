@@ -13,6 +13,8 @@ CKEDITOR.dialog.add( 'tableDialog', function ( editor ) {
             type: 'text',
             id: 'rows',
             label: 'Rows',
+            labelLayout: "hori"
+            widths: [50, 50],
             validate: CKEDITOR.dialog.validate.notEmpty( "Rows field cannot be empty." )
           },
           {
@@ -31,7 +33,14 @@ CKEDITOR.dialog.add( 'tableDialog', function ( editor ) {
             type: 'radio',
             id: 'tableModes',
             label: 'Advanced Table Modes',//Makes the table sortable or a swipe table
-            items: [ ['Sortable'], ['Swipe'] ]
+            items: [ ['Stack'], ['Sortable'], ['Swipe'] ],
+            default: 'Stack'
+          },
+          {
+            type: 'text',
+            id: 'borderColor',
+            label: 'Border Color',//Sets the table border color, including inside borders
+            default: '#d8d8d8'
           },
           {
             type: 'text',
@@ -48,25 +57,32 @@ CKEDITOR.dialog.add( 'tableDialog', function ( editor ) {
           {
             type: 'text',
             id: 'headerColor',
-            label: 'Table Header Color'//Sets the table header color
-          },
-          {
-            type: 'text',
-            id: 'fontColor',
-            label: 'Font Color'//Sets all font color in the table
+            label: 'Table Header Color',//Sets the table header color
+            default: '#ffffff'
           }
         ]
       }
     ],
     onOk: function() {
-      var dialog = this;
-      var table = editor.document.createElement( 'table' );
-      var rows = dialog.getValueOf('tab-basic', 'rows');
-      var columns = dialog.getValueOf('tab-basic', 'columns');
-      var advancedTableMode = dialog.getValueOf('tab-adv', 'tableModes');
+      //Grab values from dialog
 
+      //Table Options
+      var table = editor.document.createElement( 'table' );
+      var rows = this.getValueOf('tab-basic', 'rows');
+      var columns = this.getValueOf('tab-basic', 'columns');
+      var advancedTableMode = this.getValueOf('tab-adv', 'tableModes');
+      //Color Options
+      var oddColor = this.getValueOf('tab-adv', 'oddColor');
+      var evenColor = this.getValueOf('tab-adv', 'evenColor');
+      var headerColor = this.getValueOf('tab-adv', 'headerColor');
+      var borderColor = this.getValueOf('tab-adv', 'borderColor');
+
+      //create base table elements
       var thead = new CKEDITOR.dom.element('thead');
       var tbody = new CKEDITOR.dom.element('tbody');
+
+      //set table border color
+      table.setStyle('border-color', borderColor);
 
       //Set classes and data-attributes that Tablesaw library requires based on UI options. Default is Stack table
       switch(advancedTableMode) {
@@ -84,26 +100,48 @@ CKEDITOR.dialog.add( 'tableDialog', function ( editor ) {
           table.data('tablesaw-mode', 'stack');
       }
 
+      //Build table
       thead.appendTo(table);
       tbody.appendTo(table);
 
       for(var y=0; y < rows; y++) {
         if(y == 0) {
           var tr = new CKEDITOR.dom.element('tr');
+          tr.setSize('height', 50);
           tr.appendTo(thead);
         }
         else {
           var tr = new CKEDITOR.dom.element('tr');
+          tr.setSize('height', 50);
+          //Even row
+          if(y % 2 === 0) {
+            tr.setStyles({
+              backgroundColor: evenColor,
+              border: '1px solid ' + borderColor
+            });
+          }
+          //Odd row
+          else {
+            tr.setStyles({
+              backgroundColor: oddColor,
+              border: '1px solid ' + borderColor
+            });
+          }
           tr.appendTo(tbody);
         }
 
         for(var x=0; x < columns; x++) {
           if(y == 0) {
             var th = new CKEDITOR.dom.element('th');
-            //If sortable option selected, add this data-attribute to headers to enable them to be sorted
+            //If sortable option selected, add this data-attribute to headers to enable them to be sorted. Required by library
             if(advancedTableMode === 'Sortable') {
               th.data('tablesaw-sortable-col', '');
             }
+
+            th.setStyles({
+              backgroundColor: headerColor,
+              border: '1px solid ' + borderColor
+            });
 
             th.appendTo(tr);
           }
@@ -113,8 +151,11 @@ CKEDITOR.dialog.add( 'tableDialog', function ( editor ) {
           }
         }
       }
-
       editor.insertElement( table );
     }
   };
+});
+
+CKEDITOR.on('insertElement', function(e) {
+  console.log(e);
 });

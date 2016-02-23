@@ -31,9 +31,9 @@ function ckeditor_responsive_tables_wysiwyg_plugin($editor, $version) {
 function ckeditor_responsive_tables_wysiwyg_editor_settings_alter(&$settings, $context) {
     if ($context['profile']->editor == 'ckeditor') {
         $settings['allowedContent'] = TRUE;
-        $settings['extraAllowedContent'] = array(
-            '*[*]{*}(*)',
-            'thead'
-        );
+//        $settings['extraAllowedContent'] = array(
+//            '*[*]{*}(*)',
+//            'thead'
+//        );
     }
 }
