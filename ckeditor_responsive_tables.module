@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * Implements hook_preprocess_page()
+ * Adds CSS for class based styling
+ */
+function ckeditor_responsive_tables_preprocess_page($vars) {
+}
+
+/**
+ * Implements hook_wysiwyg_plugin().
+ */
+function ckeditor_responsive_tables_wysiwyg_plugin($editor, $version) {
+    $plugins = array();
+    if ($editor == 'ckeditor' && version_compare($version, '4.0', '>=')) {
+        $plugins['responsive_tables'] = array(
+            'path' => drupal_get_path('module', 'ckeditor_responsive_tables') . '/plugins/responsive_tables',
+            'buttons' => array(
+                'Responsive Tables' => t('Responsive Tables'),
+            ),
+            'load' => TRUE,
+            'internal' => FALSE,
+        );
+    }
+    return $plugins;
+}
+
+/**
+ * Implements hook_wysiwyg_editor_settings_alter().
+ */
+function ckeditor_responsive_tables_wysiwyg_editor_settings_alter(&$settings, $context) {
+    if ($context['profile']->editor == 'ckeditor') {
+        $settings['allowedContent'] = TRUE;
+        $settings['extraAllowedContent'] = array(
+            '*[*]{*}(*)',
+            'thead'
+        );
+    }
+}
