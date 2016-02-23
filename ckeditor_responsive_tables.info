@@ -6,6 +6,7 @@ dependencies[]       = wysiwyg
 scripts[]            = tablesaw/dist/tablesaw.js
 scripts[]            = tablesaw/dist/tablesaw-init.js
 stylesheets[all][]   = tablesaw/dist/bare/tablesaw.bare.css
+dependencies[]       = WYSIWYG_filter
 
 version = "7.x-1.0"
 core = "7.x"
