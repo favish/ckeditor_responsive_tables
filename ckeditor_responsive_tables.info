@@ -3,9 +3,9 @@ description          = Add the Responsive Tables plugin to the CKEditor when use
 core                 = 7.x
 package              = User interface
 dependencies[]       = wysiwyg
-scripts[]            = js/dist/tablesaw.js
-scripts[]            = js/dist/tablesaw-init.js
-stylesheets[all][]   = js/dist/tablesaw.css
+scripts[]            = tablesaw/dist/tablesaw.js
+scripts[]            = tablesaw/dist/tablesaw-init.js
+stylesheets[all][]   = tablesaw/dist/bare/tablesaw.bare.css
 
 version = "7.x-1.0"
 core = "7.x"
