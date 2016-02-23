@@ -13,8 +13,6 @@ CKEDITOR.dialog.add( 'tableDialog', function ( editor ) {
             type: 'text',
             id: 'rows',
             label: 'Rows',
-            labelLayout: "hori"
-            widths: [50, 50],
             validate: CKEDITOR.dialog.validate.notEmpty( "Rows field cannot be empty." )
           },
           {
