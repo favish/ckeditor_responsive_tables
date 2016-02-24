@@ -42,6 +42,12 @@ CKEDITOR.dialog.add( 'tableDialog', function ( editor ) {
           },
           {
             type: 'text',
+            id: 'borderSize',
+            label: 'Border Size',//Sets the table border size, including inside borders
+            default: '1'
+          },
+          {
+            type: 'text',
             id: 'evenColor',
             label: 'Even Row Color',
             default: '#ffffff'//from their CSS, their base even zebra color is just white
@@ -69,11 +75,12 @@ CKEDITOR.dialog.add( 'tableDialog', function ( editor ) {
       var rows = this.getValueOf('tab-basic', 'rows');
       var columns = this.getValueOf('tab-basic', 'columns');
       var advancedTableMode = this.getValueOf('tab-adv', 'tableModes');
-      //Color Options
+      //Color/Size Options
       var oddColor = this.getValueOf('tab-adv', 'oddColor');
       var evenColor = this.getValueOf('tab-adv', 'evenColor');
       var headerColor = this.getValueOf('tab-adv', 'headerColor');
       var borderColor = this.getValueOf('tab-adv', 'borderColor');
+      var borderSize = this.getValueOf('tab-adv', 'borderSize');
 
       //create base table elements
       var thead = new CKEDITOR.dom.element('thead');
@@ -115,14 +122,14 @@ CKEDITOR.dialog.add( 'tableDialog', function ( editor ) {
           if(y % 2 === 0) {
             tr.setStyles({
               backgroundColor: evenColor,
-              border: '1px solid ' + borderColor
+              border: borderSize + 'px solid ' + borderColor
             });
           }
           //Odd row
           else {
             tr.setStyles({
               backgroundColor: oddColor,
-              border: '1px solid ' + borderColor
+              border: borderSize + 'px solid ' + borderColor
             });
           }
           tr.appendTo(tbody);
@@ -138,7 +145,7 @@ CKEDITOR.dialog.add( 'tableDialog', function ( editor ) {
 
             th.setStyles({
               backgroundColor: headerColor,
-              border: '1px solid ' + borderColor
+              border: borderSize + 'px solid ' + borderColor
             });
 
             th.appendTo(tr);
