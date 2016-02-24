@@ -12,20 +12,32 @@ CKEDITOR.dialog.add( 'tableDialog', function ( editor ) {
           {
             type: 'text',
             id: 'rows',
-            label: 'Rows (Table Header is included in this)',
-            validate: CKEDITOR.dialog.validate.notEmpty( "Rows field cannot be empty." )
+            label: '# Rows (Table Header is included in this)',
+            validate: function() {
+              var value = this.getValue();
+
+              if(value == 0 || value <=1 ) {
+                alert('The number of rows must be greater than 1, as the first row is the table header');
+                return false;
+              }
+            }
           },
           {
             type: 'text',
             id: 'columns',
-            label: 'Columns',
-            validate: CKEDITOR.dialog.validate.notEmpty( "Columns field cannot be empty." )
+            label: '# Columns',
+            validate: function() {
+              if(this.getValue() == 0) {
+                alert('The number of columns must be greater than 0');
+                return false;
+              }
+            }
           },
           {
             type: 'radio',
             id: 'tableModes',
             label: 'Table Mode',//Makes the table sortable, swipe, or stack table (default)
-            items: [ ['Stack'], ['Sortable'], ['Swipe'] ],
+            items: [ ['Stack (Default)', 'Stack'], ['Sortable'], ['Swipe'] ],
             default: 'Stack'
           },
           {
