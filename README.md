@@ -15,6 +15,12 @@ In the 'Allowed HTML tags' section add `<thead>` to the list. This allows the pr
 
 ### Module Options
 
-The module allows users to create responsive tables with various options directly through CKEditor. There is a new button called "Responsive Tables" that will bring up a dialog with
+The module allows users to create responsive tables with various options directly through CKEditor. There is a new button called `Responsive Tables` that will bring up a dialog with
 these options. Options include amount of rows/columns, type of table (default is stack), and whether or not to add a class that can be targetted for zebra striping. Currently this clas is not defined.
 Default's are set to the current theme for tables.
+
+To see examples of the various tables see the following:
+
+Stack    - http://filamentgroup.github.io/tablesaw/demo/stack.html
+Sortable - http://filamentgroup.github.io/tablesaw/demo/sort.html
+Swipe    - http://filamentgroup.github.io/tablesaw/demo/swipe.html
