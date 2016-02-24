@@ -12,7 +12,7 @@ CKEDITOR.dialog.add( 'tableDialog', function ( editor ) {
           {
             type: 'text',
             id: 'rows',
-            label: 'Rows',
+            label: 'Rows (Table Header is included in this)',
             validate: CKEDITOR.dialog.validate.notEmpty( "Rows field cannot be empty." )
           },
           {
@@ -20,74 +20,39 @@ CKEDITOR.dialog.add( 'tableDialog', function ( editor ) {
             id: 'columns',
             label: 'Columns',
             validate: CKEDITOR.dialog.validate.notEmpty( "Columns field cannot be empty." )
-          }
-        ]
-      },
-      {
-        id: 'tab-adv',
-        label: 'Table Options',
-        elements: [
+          },
           {
             type: 'radio',
             id: 'tableModes',
-            label: 'Advanced Table Modes',//Makes the table sortable or a swipe table
+            label: 'Advanced Table Modes',//Makes the table sortable, swipe, or stack table (default)
             items: [ ['Stack'], ['Sortable'], ['Swipe'] ],
             default: 'Stack'
           },
           {
-            type: 'text',
-            id: 'borderColor',
-            label: 'Border Color',//Sets the table border color, including inside borders
-            default: '#d8d8d8'
-          },
-          {
-            type: 'text',
-            id: 'borderSize',
-            label: 'Border Size',//Sets the table border size, including inside borders
-            default: '1'
-          },
-          {
-            type: 'text',
-            id: 'evenColor',
-            label: 'Even Row Color',
-            default: '#ffffff'//from their CSS, their base even zebra color is just white
-          },
-          {
-            type: 'text',
-            id: 'oddColor',
-            label: 'Odd Row Color',
-            default: '#FEF6E8'//from their CSS, this is the zebra odd row color
-          },
-          {
-            type: 'text',
-            id: 'headerColor',
-            label: 'Table Header Color',//Sets the table header color
-            default: '#ffffff'
+            type: 'checkbox',
+            id: 'zebra',
+            label: 'Enable Zebra Stripes'//Makes the table sortable or a swipe table
           }
         ]
       }
     ],
     onOk: function() {
       //Grab values from dialog
-
       //Table Options
       var table = editor.document.createElement( 'table' );
       var rows = this.getValueOf('tab-basic', 'rows');
       var columns = this.getValueOf('tab-basic', 'columns');
-      var advancedTableMode = this.getValueOf('tab-adv', 'tableModes');
-      //Color/Size Options
-      var oddColor = this.getValueOf('tab-adv', 'oddColor');
-      var evenColor = this.getValueOf('tab-adv', 'evenColor');
-      var headerColor = this.getValueOf('tab-adv', 'headerColor');
-      var borderColor = this.getValueOf('tab-adv', 'borderColor');
-      var borderSize = this.getValueOf('tab-adv', 'borderSize');
+      var advancedTableMode = this.getValueOf('tab-basic', 'tableModes');
+      var zebraStripes = this.getValueOf('tab-basic', 'zebra');
+
+      //add a class if UI option is selected so it can be targeted via CSS
+      if(zebraStripes) {
+        table.addClass('zebra-stripe-enabled');
+      }
 
       //create base table elements
       var thead = new CKEDITOR.dom.element('thead');
       var tbody = new CKEDITOR.dom.element('tbody');
-
-      //set table border color
-      table.setStyle('border-color', borderColor);
 
       //Set classes and data-attributes that Tablesaw library requires based on UI options. Default is Stack table
       switch(advancedTableMode) {
@@ -112,26 +77,10 @@ CKEDITOR.dialog.add( 'tableDialog', function ( editor ) {
       for(var y=0; y < rows; y++) {
         if(y == 0) {
           var tr = new CKEDITOR.dom.element('tr');
-          tr.setSize('height', 50);
           tr.appendTo(thead);
         }
         else {
           var tr = new CKEDITOR.dom.element('tr');
-          tr.setSize('height', 50);
-          //Even row
-          if(y % 2 === 0) {
-            tr.setStyles({
-              backgroundColor: evenColor,
-              border: borderSize + 'px solid ' + borderColor
-            });
-          }
-          //Odd row
-          else {
-            tr.setStyles({
-              backgroundColor: oddColor,
-              border: borderSize + 'px solid ' + borderColor
-            });
-          }
           tr.appendTo(tbody);
         }
 
@@ -142,12 +91,6 @@ CKEDITOR.dialog.add( 'tableDialog', function ( editor ) {
             if(advancedTableMode === 'Sortable') {
               th.data('tablesaw-sortable-col', '');
             }
-
-            th.setStyles({
-              backgroundColor: headerColor,
-              border: borderSize + 'px solid ' + borderColor
-            });
-
             th.appendTo(tr);
           }
           else {
@@ -159,8 +102,4 @@ CKEDITOR.dialog.add( 'tableDialog', function ( editor ) {
       editor.insertElement( table );
     }
   };
-});
-
-CKEDITOR.on('insertElement', function(e) {
-  console.log(e);
 });
