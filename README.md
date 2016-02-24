@@ -4,14 +4,14 @@
 
 First, the module needs to be installed and enabled.
 
-Navigate to `/admin/config/content/wysiwyg/filtered_html`, under the section 'Buttons and Plugins' enable the checkbox next to "Responsive Tables". At the bottom, under the tab CSS, for CSS path, add
-"%t/assets/css/gsb.css" separated by a comma to the list. This will pull in the Columbia CSS (gsb.css in this case) file which themes tables into CKEditor, so tables viewed in CKEditor follow the same basic theming. You will
+Navigate to `/admin/config/content/wysiwyg/filtered_html`, under the section `Buttons and Plugins` enable the checkbox next to `Responsive Tables`. At the bottom, under the tab CSS, for `CSS path`, add
+`%t/assets/css/gsb.css` separated by a comma to the list. This will pull in the Columbia CSS (gsb.css in this case) file which themes tables into CKEditor, so tables viewed in CKEditor follow the same basic theming. You will
 now have a Responsive Table icon on the CKEditor toolbar under Filtered HTML mode.
 
 ## Configuration
 
-Navigate to `/admin/config/content/formats/filtered_html`, at the bottom, under the tab 'Filter settings', select 'Limited allowed HTML tags'.
-In the 'Allowed HTML tags' section add 'thead' to the list. This allows the proper table structure and is required  by the library to work.
+Navigate to `/admin/config/content/formats/filtered_html`, at the bottom, under the tab `Filter settings`, select `Limited allowed HTML tags`.
+In the 'Allowed HTML tags' section add `<thead>` to the list. This allows the proper table structure and is required  by the library to work.
 
 ### Module Options
 
