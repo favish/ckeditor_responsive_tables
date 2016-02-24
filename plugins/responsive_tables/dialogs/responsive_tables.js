@@ -24,14 +24,14 @@ CKEDITOR.dialog.add( 'tableDialog', function ( editor ) {
           {
             type: 'radio',
             id: 'tableModes',
-            label: 'Advanced Table Modes',//Makes the table sortable, swipe, or stack table (default)
+            label: 'Table Mode',//Makes the table sortable, swipe, or stack table (default)
             items: [ ['Stack'], ['Sortable'], ['Swipe'] ],
             default: 'Stack'
           },
           {
             type: 'checkbox',
             id: 'zebra',
-            label: 'Enable Zebra Stripes'//Makes the table sortable or a swipe table
+            label: 'Enable Alternating Row Coloring'//Adds a class to the table so it can be targeted
           }
         ]
       }
