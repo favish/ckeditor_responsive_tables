@@ -11,7 +11,7 @@ now have a Responsive Table icon on the CKEditor toolbar under Filtered HTML mod
 ## Configuration
 
 Navigate to `/admin/config/content/formats/filtered_html`, at the bottom, under the tab 'Filter settings', select 'Limited allowed HTML tags'.
-In the 'Allowed HTML tags' section add <thead> to the list. This allows the proper table structure and is required  by the library to work.
+In the 'Allowed HTML tags' section add '<thead>' to the list. This allows the proper table structure and is required  by the library to work.
 
 ### Module Options
 
