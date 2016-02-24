@@ -1,10 +1,22 @@
+/* This fixes a conflict with Columbia's CSS that is floating the arrows on Swipe tables */
 .tablesaw-bar.mode-swipe .left,
 .tablesaw-bar.mode-swipe .left {
     float: none;
 }
-
+/* This adds a top border when the stack tables go into stacked mode - as it reorganizes the table and the table body has no top border */
 @media screen and (max-width: 640px) {
     .tablesaw.tablesaw-stack tbody {
         border-top: 1px solid #d8d8d8;
     }
+}
+/* This targets the hidden element that is shown when the table stacks (it mimics the table header, but when it stacks the table header is removed */
+.cbs-table td b {
+    text-transform: uppercase;
+    color: rgb(66, 66, 66);
+    font-family: 'polaris_book';
+    font-size: 14px;
+}
+/* Fixes an issue with the table header buttons for sortable tables. The active border is not displaying correctly */
+.tablesaw-sortable th button {
+    z-index: 1;
 }
