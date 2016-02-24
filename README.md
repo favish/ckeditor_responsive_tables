@@ -21,6 +21,6 @@ Default's are set to the current theme for tables.
 
 To see examples of the various tables see the following:
 
-Stack    - http://filamentgroup.github.io/tablesaw/demo/stack.html
-Sortable - http://filamentgroup.github.io/tablesaw/demo/sort.html
-Swipe    - http://filamentgroup.github.io/tablesaw/demo/swipe.html
+1. Stack    - http://filamentgroup.github.io/tablesaw/demo/stack.html
+2. Sortable - http://filamentgroup.github.io/tablesaw/demo/sort.html
+3. Swipe    - http://filamentgroup.github.io/tablesaw/demo/swipe.html
