@@ -16,8 +16,8 @@ In the 'Allowed HTML tags' section add `<thead>` to the list. This allows the pr
 ### Module Options
 
 The module allows users to create responsive tables with various options directly through CKEditor. There is a new button called `Responsive Tables` that will bring up a dialog with
-these options. Options include amount of rows/columns, type of table (default is stack), and whether or not to add a class that can be targetted for zebra striping. Currently this clas is not defined.
-Default's are set to the current theme for tables.
+these options. Options include amount of rows/columns, type of table (default is stack), and whether or not to add a class that can be targetted for zebra striping. Currently this class is not defined.
+Default's are set to the current theme for tables. Also note that the number of rows includes the header, so a 3 row, 3 column table will produce one row as the table header, and two rows for data.
 
 To see examples of the various tables see the following:
 
