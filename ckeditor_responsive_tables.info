@@ -1,5 +1,5 @@
-name                 = CKEditor Responsive Tables
-description          = Add the Responsive Tables plugin to the CKEditor when used with WYSIWYG
+name                 = CKEditor Responsive Table Maker
+description          = A CKEditor Plugin that allows content editors to make responsive tables using the Tablesaw library
 core                 = 7.x
 package              = User interface
 dependencies[]       = wysiwyg
@@ -9,5 +9,4 @@ stylesheets[all][]   = tablesaw/dist/bare/tablesaw.bare.css
 stylesheets[all][]   = plugins/responsive_tables/css/responsive_table.css
 
 version = "7.x-1.0"
-core = "7.x"
 project = "ckeditor_responsiveTables"

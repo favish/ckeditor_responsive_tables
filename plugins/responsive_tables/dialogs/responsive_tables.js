@@ -38,9 +38,9 @@ CKEDITOR.dialog.add( 'tableDialog', function ( editor ) {
       }
     ],
     onOk: function() {
-      //Grab values from dialog
-      //Table Options
       var table = editor.document.createElement( 'table' );
+
+      //Table Options
       var rows = this.getValueOf('tab-basic', 'rows');
       var columns = this.getValueOf('tab-basic', 'columns');
       var advancedTableMode = this.getValueOf('tab-basic', 'tableModes');
@@ -76,16 +76,18 @@ CKEDITOR.dialog.add( 'tableDialog', function ( editor ) {
       tbody.appendTo(table);
 
       for(var y=0; y < rows; y++) {
+        var tr = new CKEDITOR.dom.element('tr');
+
+        //if first row, then it's table header
         if(y == 0) {
-          var tr = new CKEDITOR.dom.element('tr');
           tr.appendTo(thead);
         }
         else {
-          var tr = new CKEDITOR.dom.element('tr');
           tr.appendTo(tbody);
         }
 
         for(var x=0; x < columns; x++) {
+          //if first row, then add ths inside the table header, rather than tds
           if(y == 0) {
             var th = new CKEDITOR.dom.element('th');
             //If sortable option selected, add this data-attribute to headers to enable them to be sorted. Required by library
