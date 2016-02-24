@@ -2,7 +2,7 @@ CKEDITOR.dialog.add( 'tableDialog', function ( editor ) {
   return {
     title: 'Responsive Table Maker',
     minWidth: 400,
-    minHeight: 200,
+    minHeight: 300,
 
     contents: [
       {
@@ -31,7 +31,8 @@ CKEDITOR.dialog.add( 'tableDialog', function ( editor ) {
           {
             type: 'checkbox',
             id: 'zebra',
-            label: 'Enable Alternating Row Coloring'//Adds a class to the table so it can be targeted
+            label: 'Enable Alternate Row Coloring',//Adds a class to the table
+            default: 'checked'
           }
         ]
       }
@@ -43,11 +44,11 @@ CKEDITOR.dialog.add( 'tableDialog', function ( editor ) {
       var rows = this.getValueOf('tab-basic', 'rows');
       var columns = this.getValueOf('tab-basic', 'columns');
       var advancedTableMode = this.getValueOf('tab-basic', 'tableModes');
-      var zebraStripes = this.getValueOf('tab-basic', 'zebra');
+      var zebraStripe = this.getValueOf('tab-basic', 'zebra');
 
       //add a class if UI option is selected so it can be targeted via CSS
-      if(zebraStripes) {
-        table.addClass('zebra-stripe-enabled');
+      if(zebraStripe) {
+        table.addClass('table-zebra-stripe');
       }
 
       //create base table elements
