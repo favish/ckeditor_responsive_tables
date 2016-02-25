@@ -20,3 +20,7 @@
 .tablesaw-sortable th button {
     z-index: 1;
 }
+/* Removes the bottom border being added by Tablesaw.bare.css which isn't part of Columbia's base styling */
+.tablesaw tbody tr {
+    border-bottom: none;
+}

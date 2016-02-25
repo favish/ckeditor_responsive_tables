@@ -5,8 +5,12 @@ table.tablesaw {
     width: 95%;
     margin: 0 auto;
 }
-/* Adds in borders for the TH's and TD's to better denote where to enter data, especially when the table is empty */
-table.tablesaw th,
+/* Adds in borders for the TH's and TD's to better denote where to enter data, especially when the table is empty, important because CKeditor has a long list of classes/elements targeting this
+ and it's not practical to out-class/element them */
 table.tablesaw td {
-    border-right: 1px solid #d8d8d8;
+    border: 1px dotted #d8d8d8 !important;
+}
+/* Header slightly different to denote it's separate from the body elements */
+table.tablesaw th {
+    border: 2px solid #d8d8d8 !important;
 }
