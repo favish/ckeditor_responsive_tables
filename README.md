@@ -5,7 +5,7 @@
 First, the module needs to be installed and enabled.
 
 Navigate to `/admin/config/content/wysiwyg/filtered_html`, under the section `Buttons and Plugins` enable the checkbox next to `Responsive Tables`. At the bottom, under the tab CSS, for `CSS path`, add
-`%t/assets/css/gsb.css` and `%bsites/all/modules/contrib/ckeditor_responsive_tables/tablesaw/dist/bare/tablesaw.bare.css` separated by a comma to the list. This will pull in the Columbia CSS (gsb.css in this case) and Tablesaw's base CSS file. This will ensure that tables viewed inside CKEditor will look like the tables created. You will
+`%t/assets/css/gsb.css` and `%bsites/all/modules/contrib/ckeditor-responsiveTables/tablesaw/dist/bare/tablesaw.bare.css` separated by a comma to the list. This will pull in the Columbia CSS (gsb.css in this case) and Tablesaw's base CSS file. This will ensure that tables viewed inside CKEditor will look like the tables created. You will
 now have a Responsive Table icon on the CKEditor toolbar under Filtered HTML mode.
 
 ## Configuration
