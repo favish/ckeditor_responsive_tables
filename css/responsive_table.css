@@ -9,7 +9,7 @@
         border-top: 1px solid #d8d8d8;
     }
 }
-/* This targets the hidden element that is shown when the table stacks (it mimics the table header, but when it stacks the table header is removed */
+/* This targets the hidden element that is shown when the table stacks (it mimics the table header, but when it stacks the table header is removed) */
 .cbs-table td b {
     text-transform: uppercase;
     color: rgb(66, 66, 66);

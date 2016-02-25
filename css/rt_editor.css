@@ -1,0 +1,12 @@
+/* These rules apply only the tables created by this module in CKEditor. These styles make the table easy to view and enter data into in, but do not reflect how it necessarily looks on the page */
+
+/* Pulls the table off the editor edges and centers it to make it a bit easier to edit */
+table.tablesaw {
+    width: 95%;
+    margin: 0 auto;
+}
+/* Adds in borders for the TH's and TD's to better denote where to enter data, especially when the table is empty */
+table.tablesaw th,
+table.tablesaw td {
+    border-right: 1px solid #d8d8d8;
+}
