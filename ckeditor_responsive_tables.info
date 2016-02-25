@@ -6,7 +6,7 @@ dependencies[]       = wysiwyg
 scripts[]            = tablesaw/dist/tablesaw.js
 scripts[]            = tablesaw/dist/tablesaw-init.js
 stylesheets[all][]   = tablesaw/dist/bare/tablesaw.bare.css
-stylesheets[all][]   = plugins/responsive_tables/css/responsive_table.css
+stylesheets[all][]   = css/responsive_table.css
 
 version = "7.x-1.0"
 project = "ckeditor_responsiveTables"

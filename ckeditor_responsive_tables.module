@@ -6,7 +6,7 @@ function ckeditor_responsive_tables_wysiwyg_plugin($editor, $version) {
     $plugins = array();
     if ($editor == 'ckeditor' && version_compare($version, '4.0', '>=')) {
         $plugins['responsive_tables'] = array(
-            'path' => drupal_get_path('module', 'ckeditor_responsive_tables') . '/plugins/responsive_tables',
+            'path' => drupal_get_path('module', 'ckeditor_responsive_tables'),
             'buttons' => array(
                 'Responsive Tables' => t('Responsive Tables'),
             ),

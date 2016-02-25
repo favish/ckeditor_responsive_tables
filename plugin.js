@@ -7,7 +7,7 @@ CKEDITOR.plugins.add( 'responsive_tables', {
       label: 'Create Responsive Table',
       command: 'openTableDialog',
       toolbar: 'insert',
-      icon: this.path + 'icons/table.png'
+      icon: this.path + 'icon.png'
     });
 
     editor.addCommand('openTableDialog', new CKEDITOR.dialogCommand('tableDialog'));
