@@ -47,6 +47,22 @@
     };
   }
 
+  function tableColumns( table ) {
+    var cols = 0,
+      maxCols = 0;
+    for ( var i = 0, row, rows = table.$.rows.length; i < rows; i++ ) {
+      row = table.$.rows[ i ], cols = 0;
+      for ( var j = 0, cell, cells = row.cells.length; j < cells; j++ ) {
+        cell = row.cells[ j ];
+        cols += cell.colSpan;
+      }
+
+      cols > maxCols && ( maxCols = cols );
+    }
+
+    return maxCols;
+  }
+
   function tableDialog( editor, command ) {
     return {
       title: 'Responsive Table Maker',
@@ -68,14 +84,20 @@
                   id: 'rows',
                   label: 'Rows',
                   width: '40px',
-                  validate: validatorNum(editor.lang.table.invalidRows)
+                  validate: validatorNum(editor.lang.table.invalidRows),
+                  setup: function( selectedElement ) {
+                    this.setValue( selectedElement.$.rows.length );
+                  },
                 },
                 {
                   type: 'text',
                   id: 'columns',
                   label: 'Columns',
                   width: '40px',
-                  validate: validatorNum(editor.lang.table.invalidCols)
+                  validate: validatorNum(editor.lang.table.invalidCols),
+                  setup: function( selectedTable ) {
+                    this.setValue( tableColumns( selectedTable ) );
+                  },
                 }
               ]
             },
@@ -209,33 +231,36 @@
         thead.appendTo(table);
         tbody.appendTo(table);
 
-        for (var y = 0; y < rows; y++) {
-          var tr = new CKEDITOR.dom.element('tr');
+        if ( !this._.selectedElement ) {
+          for (var y = 0; y < rows; y++) {
+            var tr = new CKEDITOR.dom.element('tr');
 
-          //if first row, then it's table header
-          if (y == 0) {
-            tr.appendTo(thead);
-          }
-          else {
-            tr.appendTo(tbody);
-          }
-
-          for (var x = 0; x < columns; x++) {
-            //if first row, then add ths inside the table header, rather than tds
+            //if first row, then it's table header
             if (y == 0) {
-              var th = new CKEDITOR.dom.element('th');
-              //If sortable option selected, add this data-attribute to headers to enable them to be sorted. Required by library
-              if (advancedTableMode === 'Sortable') {
-                th.data('tablesaw-sortable-col', '');
-              }
-              th.appendTo(tr);
+              tr.appendTo(thead);
             }
             else {
-              var td = new CKEDITOR.dom.element('td');
-              td.appendTo(tr);
+              tr.appendTo(tbody);
+            }
+
+            for (var x = 0; x < columns; x++) {
+              //if first row, then add ths inside the table header, rather than tds
+              if (y == 0) {
+                var th = new CKEDITOR.dom.element('th');
+                //If sortable option selected, add this data-attribute to headers to enable them to be sorted. Required by library
+                if (advancedTableMode === 'Sortable') {
+                  th.data('tablesaw-sortable-col', '');
+                }
+                th.appendTo(tr);
+              }
+              else {
+                var td = new CKEDITOR.dom.element('td');
+                td.appendTo(tr);
+              }
             }
           }
         }
+
         // Insert the table element if we're creating one.
         if ( !this._.selectedElement ) {
           editor.insertElement( table );
