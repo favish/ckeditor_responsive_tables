@@ -23,7 +23,7 @@ CKEDITOR.plugins.add( 'responsive_tables', {
           label: 'Table Properties',
           command: 'RT-tableProperties',
           group: 'table',
-          icon: 'icon',
+          icon:  this.path + 'icon.png',
           order: 5
         }
       } );

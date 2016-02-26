@@ -1,5 +1,52 @@
-//CKEDITOR.dialog.add( 'tableDialog', function ( editor ) {
 ( function() {
+
+  //Remove table-specific classes, base Tablesaw class can stay, as all tables use it
+  function stripClasses(selectedTable) {
+    selectedTable.removeClass('tablesaw-stack');
+    selectedTable.removeClass('tablesaw-sortable');
+    selectedTable.removeClass('tablesaw-swipe');
+  }
+
+  //Strip data attributes that Tablesaw uses to init
+  function stripDataAttributes(selectedTable) {
+    selectedTable.data('tablesaw-sortable', false);
+    selectedTable.data('tablesaw-sortable-switch', false);
+    selectedTable.data('tablesaw-mode-stack', false);
+    selectedTable.data('tablesaw-mode-swipe', false);
+  }
+
+  //Adds or removes data attribute to TH elements when table is in 'Sortable' mode
+  function sortabledHeaders(selectedTable, option) {
+    var headerList = selectedTable.find('th');
+    var headerOption = null;
+
+    if(option === 'add') {
+      headerOption = ''
+    }
+    else {
+      headerOption = false;
+    }
+
+    for(var x=0; x < headerList.count(); x++) {
+      headerList.getItem(x).data('tablesaw-sortable-col', headerOption);
+    }
+  }
+
+  // Whole-positive-integer validator.
+  function validatorNum( msg ) {
+    return function() {
+      var value = this.getValue(),
+        pass = !!( CKEDITOR.dialog.validate.integer()( value ) && value > 0 );
+
+      if ( !pass ) {
+        alert( msg ); // jshint ignore:line
+        this.select();
+      }
+
+      return pass;
+    };
+  }
+
   function tableDialog( editor, command ) {
     return {
       title: 'Responsive Table Maker',
@@ -20,80 +67,80 @@
                   type: 'text',
                   id: 'rows',
                   label: 'Rows',
-                  width: '40px'
+                  width: '40px',
+                  validate: validatorNum(editor.lang.table.invalidRows)
                 },
                 {
                   type: 'text',
                   id: 'columns',
                   label: 'Columns',
-                  width: '40px'
+                  width: '40px',
+                  validate: validatorNum(editor.lang.table.invalidCols)
                 }
               ]
             },
-            //{//TODO: Fix validation
-            //  type: 'text',
-            //  id: 'rows',
-            //  label: '# Rows (Table Header is included in this)'
-            //  //validate: function () {
-            //  //  var value = this.getValue();
-            //  //
-            //  //  if (value == 0 || value <= 1) {
-            //  //    alert('The number of rows must be greater than 1, as the first row is the table header');
-            //  //    return false;
-            //  //  }
-            //  //}
-            //},
-            //{
-            //  type: 'text',
-            //  id: 'columns',
-            //  label: '# Columns'
-            //  //validate: function () {
-            //  //  if (this.getValue() == 0) {
-            //  //    alert('The number of columns must be greater than 0');
-            //  //    return false;
-            //  //  }
-            //  //}
-            //},
             {
               type: 'radio',
               id: 'tableModes',
               style: "margin: 10px 0",
               label: 'Table Mode',//Makes the table sortable, swipe, or stack table (default)
               items: [['Stack (Default)', 'Stack'], ['Sortable'], ['Swipe']],
-              default: 'Stack',
-              //TODO: Create function to handle this cleaner
+              'default': 'Stack',
+              setup: function(selectedElement) {
+                if(selectedElement.data('tablesaw-mode') === 'swipe') {
+                  this.setValue('Swipe');
+                }
+                else if(selectedElement.data('tablesaw-sortable') === '') {
+                  this.setValue('Sortable');
+                }
+                else {
+                  this.setValue('Stack');
+                }
+              },
               commit: function( data, selectedTable ) {
                 if ( this.getValue() ) {
-                  //Strip all classes, but then add back in cbs-table and Tablesaw
-                  selectedTable.removeClass('tablesaw-stack');
-                  selectedTable.removeClass('tablesaw-sortable');
-                  selectedTable.removeClass('tablesaw-swipe');
-                  selectedTable.removeClass('tablesaw');
-                  selectedTable.removeClass('cbs-table');
+
+                  stripClasses(selectedTable);
+                  stripDataAttributes(selectedTable);
+
                   selectedTable.addClass('cbs-table');
                   selectedTable.addClass('tablesaw');
 
                   switch(this.getValue()) {
                     case 'Swipe':
+                      sortabledHeaders(selectedTable);
                       selectedTable.addClass('tablesaw-swipe');
+                      selectedTable.data('tablesaw-mode', 'swipe');
                       break;
                     case 'Sortable':
+                      sortabledHeaders(selectedTable, 'add');
                       selectedTable.addClass('tablesaw-sortable');
                       selectedTable.addClass('tablesaw-stack');
+                      selectedTable.data('tablesaw-mode', 'stack');
+                      selectedTable.data('tablesaw-sortable', '');
+                      selectedTable.data('tablesaw-sortable-switch', '');
                       break;
                     default:
+                      sortabledHeaders(selectedTable);
                       selectedTable.addClass('tablesaw-stack');
+                      selectedTable.data('tablesaw-mode', 'stack');
                   }
                 }
-                else
-                  selectedTable.removeClass('table-zebra-stripe');
               }
             },
-            {//TODO: Make it remember if checked or not
+            {
               type: 'checkbox',
               id: 'zebra',
               label: 'Enable Alternate Row Coloring',//Adds a class to the table
-              default: 'checked',
+              'default': 'checked',
+              setup: function(selectedTable) {
+                if(selectedTable.hasClass('table-zebra-stripe')){
+                  this.setValue('checked');
+                }
+                else {
+                  this.setValue('');
+                }
+              },
               commit: function( data, selectedTable ) {
                 if ( this.getValue() )
                   selectedTable.addClass('table-zebra-stripe');
@@ -154,31 +201,9 @@
         var advancedTableMode = this.getValueOf('tab-basic', 'tableModes');
         var zebraStripe = this.getValueOf('tab-basic', 'zebra');
 
-        ////add a class if UI option is selected so it can be targeted via CSS
-        //if (zebraStripe) {
-        //  table.addClass('table-zebra-stripe');
-        //}
-
         //create base table elements
         var thead = new CKEDITOR.dom.element('thead');
         var tbody = new CKEDITOR.dom.element('tbody');
-
-        //TODO: Merge these into commit functions in element definitions
-        //Set classes and data-attributes that Tablesaw library requires based on UI options. Default is Stack table
-        switch (advancedTableMode) {
-          case 'Sortable':
-            //table.addClass('cbs-table tablesaw tablesaw-stack tablesaw-sortable');
-            table.data('tablesaw-sortable', '');
-            table.data('tablesaw-sortable-switch', '');
-            break;
-          case 'Swipe':
-            //table.addClass('cbs-table tablesaw tablesaw-swipe');
-            table.data('tablesaw-mode', 'swipe');
-            break;
-          default:
-            //table.addClass('cbs-table tablesaw tablesaw-stack');
-            table.data('tablesaw-mode', 'stack');
-        }
 
         //Build table
         thead.appendTo(table);
@@ -201,7 +226,6 @@
               var th = new CKEDITOR.dom.element('th');
               //If sortable option selected, add this data-attribute to headers to enable them to be sorted. Required by library
               if (advancedTableMode === 'Sortable') {
-                //TODO: Make this a function and call in commit
                 th.data('tablesaw-sortable-col', '');
               }
               th.appendTo(tr);
@@ -224,7 +248,6 @@
           } catch ( er ) {
           }
         }
-        //editor.insertElement(table);
       }
     };
   }
@@ -236,4 +259,3 @@
     return tableDialog( editor, 'RT-tableProperties' );
   } );
 } )();
-//});
