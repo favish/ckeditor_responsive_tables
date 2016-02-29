@@ -24,3 +24,7 @@
 .tablesaw tbody tr {
     border-bottom: none;
 }
+/* This prevents flywheel zoom issue */
+.tablesawsaw-sortable-switch select {
+    font-size: 16px;
+}
