@@ -17,6 +17,7 @@ CKEDITOR.plugins.add( 'responsive_tables', {
 
     // If the "menu" plugin is loaded, register the menu items.
     if ( editor.addMenuItems ) {
+      //This removes the exsisting table plugin from the menu, because uninstalling the plugin doesn't
       editor.removeMenuItem('table');
       editor.addMenuItems( {
         rtTable: {

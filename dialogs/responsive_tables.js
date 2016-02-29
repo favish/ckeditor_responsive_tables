@@ -32,11 +32,11 @@
     }
   }
 
-  // Whole-positive-integer validator.
+  //Whole-positive-integer validator.
   function validatorNum( msg ) {
     return function() {
-      var value = this.getValue(),
-        pass = !!( CKEDITOR.dialog.validate.integer()( value ) && value > 0 );
+      var value = this.getValue();
+      var pass = !!( CKEDITOR.dialog.validate.integer()( value ) && value > 0 );
 
       if ( !pass ) {
         alert( msg ); // jshint ignore:line
@@ -48,11 +48,11 @@
   }
 
   function tableColumns( table ) {
-    var cols = 0,
-      maxCols = 0;
-    for ( var i = 0, row, rows = table.$.rows.length; i < rows; i++ ) {
+    var cols = 0;
+    var maxCols = 0;
+    for(var i = 0, row, rows = table.$.rows.length; i < rows; i++) {
       row = table.$.rows[ i ], cols = 0;
-      for ( var j = 0, cell, cells = row.cells.length; j < cells; j++ ) {
+      for(var j = 0, cell, cells = row.cells.length; j < cells; j++) {
         cell = row.cells[ j ];
         cols += cell.colSpan;
       }
@@ -87,7 +87,7 @@
                   validate: validatorNum(editor.lang.table.invalidRows),
                   setup: function( selectedElement ) {
                     this.setValue( selectedElement.$.rows.length );
-                  },
+                  }
                 },
                 {
                   type: 'text',
@@ -97,7 +97,7 @@
                   validate: validatorNum(editor.lang.table.invalidCols),
                   setup: function( selectedTable ) {
                     this.setValue( tableColumns( selectedTable ) );
-                  },
+                  }
                 }
               ]
             },
