@@ -25,9 +25,6 @@
     border-bottom: none;
 }
 /* This prevents flywheel zoom issue */
-.tablewsaw-sortable-switch select {
-    font-size: 16px;
-}/* This prevents flywheel zoom issue */
-.tablesawsaw-sortable-switch select {
+.tablesaw-sortable-switch select {
     font-size: 16px;
 }
