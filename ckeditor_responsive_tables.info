@@ -9,4 +9,4 @@ stylesheets[all][]   = tablesaw/dist/bare/tablesaw.bare.css
 stylesheets[all][]   = css/responsive_table.css
 
 version = "7.x-1.0"
-project = "ckeditor_responsiveTables"
+project = "ckeditor_responsive_tables"
