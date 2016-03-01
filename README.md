@@ -4,7 +4,7 @@
 
 First, the module needs to be installed and enabled.
 
-Navigate to `/admin/config/content/wysiwyg/profile/filtered_html/edit`, under the section `Buttons and Plugins` enable the checkbox next to `Responsive Tables`. Optionally (but suggested) disable the checkbox next to `Table`, which is is the exsisting 
+Navigate to `/admin/config/content/wysiwyg/profile/filtered_html/edit`, under the section `Buttons and Plugins` enable the checkbox next to `Responsive Tables`. Optionally (but suggested) disable the checkbox next to `Table`, which is is the default 
 table plugin so as to prevent confusion for content creators. 
 At the bottom, under the tab CSS, for `CSS path`, add
 `%t/assets/css/gsb.css` and `%bsites/all/modules/contrib/ckeditor-responsiveTables/css/rt_editor.css` separated by a comma to the list. This will pull in the Columbia CSS (gsb.css in this case) and Tablesaw's base CSS file.
