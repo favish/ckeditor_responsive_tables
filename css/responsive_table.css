@@ -1,5 +1,5 @@
 /* Fixes a FireFox bug that is blocking border rendering in the table header */
-table.tablesaw th {
+.tablesaw-sortable, .tablesaw-sortable thead, .tablesaw-sortable thead tr, .tablesaw-sortable thead tr th {
     position: static !important;
 }
 
