@@ -1,3 +1,8 @@
+/* Fixes a FireFox bug that is blocking border rendering in the table header */
+table.tablesaw {
+    position: static;
+}
+
 /* This fixes a conflict with Columbia's CSS that is floating the arrows on Swipe tables */
 .tablesaw-bar.mode-swipe .left,
 .tablesaw-bar.mode-swipe .left {
