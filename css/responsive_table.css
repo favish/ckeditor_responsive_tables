@@ -1,6 +1,6 @@
 /* Fixes a FireFox bug that is blocking border rendering in the table header */
 table.tablesaw th {
-    position: static;
+    position: static !important;
 }
 
 /* This fixes a conflict with Columbia's CSS that is floating the arrows on Swipe tables */
