@@ -1,7 +1,6 @@
 CKEDITOR.plugins.add( 'responsive_tables', {
   icons: 'icon',
   init: function( editor ) {
-    //CKEDITOR.dialog.add( 'tableDialog', this.path + 'dialogs/responsive_tables.js' );
     CKEDITOR.dialog.add( 'openTableDialog', this.path + 'dialogs/responsive_tables.js' );
     CKEDITOR.dialog.add( 'RT-tableProperties', this.path + 'dialogs/responsive_tables.js' );
 
@@ -48,6 +47,20 @@ CKEDITOR.plugins.add( 'responsive_tables', {
         };
       } );
     }
-
+  },
+  //Special case CSS that is loaded directly into ckeditor
+  onLoad: function() {
+    CKEDITOR.addCss(
+      'table.tablesaw {' +
+      'width: 95%;' +
+      'margin: 0 auto;' +
+      '}' +
+      'table.tablesaw td {' +
+        'border: 1px dotted #d8d8d8 !important;' +
+      '}' +
+      'table.tablesaw th {' +
+      'border: 2px solid #d8d8d8 !important;' +
+      '}'
+    );
   }
 });
